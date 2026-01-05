@@ -10,7 +10,7 @@ from pydantic import BaseModel
 from core.database import Session
 from core.configs import settings
 from core.auth import oauth2_schema
-from models.users_model import UsersModel
+from models.user_models import UserModel
 
 class TokenData(BaseModel):
     userName: Optional[str] = None
@@ -26,7 +26,7 @@ async def get_session() -> Generator:
 async def get_current_user(
     db: Session = Depends(get_session), 
     token: str = Depends(oauth2_schema)
-) -> UsersModel:
+) -> UserModel:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Não foi possível validar as credenciais.",
@@ -49,9 +49,9 @@ async def get_current_user(
         raise credentials_exception
 
     async with db as session:
-        query = select(UsersModel).filter(UsersModel.id == int(token_data.userName))
+        query = select(UserModel).filter(UserModel.id == int(token_data.userName))
         result = await session.execute(query)
-        user: UsersModel = result.scalars().unique().one_or_none()
+        user: UserModel = result.scalars().unique().one_or_none()
 
         if user is None:
             raise credentials_exception

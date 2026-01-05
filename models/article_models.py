@@ -7,9 +7,9 @@ class ArticleModel(settings.DBBaseModel):
     __tablename__ = "articles"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    titulo = Column(String(256), nullable=False)
-    url_fonte = Column(String(256), nullable=False)
-    descricao = Column(String(256), nullable=False)
-    usuario_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    titulo = Column(String(256))
+    url_fonte = Column(String(256))
+    descricao = Column(String(256))
+    usuario_id = Column(Integer, ForeignKey("users.id"))
     criador = relationship(
         "UserModel", back_populates="articles", lazy="joined")

@@ -10,7 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from jose import jwt
 
-from models.users_model import UsersModel
+from models.user_models import UserModel
 from core.configs import settings
 from core.security import verify_password
 
@@ -20,16 +20,16 @@ oauth2_schema = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/users/login"
 )
 
-async def authenticate(email: EmailStr, password: str, db: AsyncSession) -> Optional[UsersModel]:
+async def authenticate(email: EmailStr, password: str, db: AsyncSession) -> Optional[UserModel]:
     async with db as session:
-        query = select(UsersModel).filter(UsersModel.email == email)
+        query = select(UserModel).filter(UserModel.email == email)
         result = await session.execute(query)
-        user: UsersModel = result.scalars().unique().one_or_none()
+        user: UserModel = result.scalars().unique().one_or_none()
 
         if not user:
             return None
 
-        if not verify_password(password, user.password):
+        if not verify_password(password, user.senha):
             return None
 
         return user

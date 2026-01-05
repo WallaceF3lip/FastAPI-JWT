@@ -1,7 +1,7 @@
 from typing import Optional, List
 from pydantic import BaseModel, EmailStr
 
-from article_schema import ArticleSchema
+from schemas.article_schema import ArticleSchema
 
 class UserSchemaBase(BaseModel):
     id: Optional[int] = None
@@ -11,7 +11,7 @@ class UserSchemaBase(BaseModel):
     eh_admin: bool = False
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class UserSchemaCreate(UserSchemaBase):
     senha: str
