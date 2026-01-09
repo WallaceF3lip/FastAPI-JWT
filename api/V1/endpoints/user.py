@@ -22,7 +22,7 @@ def get_logged_user(user_login: UserModel = Depends(get_current_user)):
     return user_login
 
 # POST Login
-@router.post("/singup", status_code=status.HTTP_201_CREATED, response_model=UserSchemaBase)
+@router.post("/signup", status_code=status.HTTP_201_CREATED, response_model=UserSchemaBase)
 async def create_user(user: UserSchemaCreate, db: AsyncSession = Depends(get_session)):
     new_user: UserModel = UserModel(
         nome=user.nome,
