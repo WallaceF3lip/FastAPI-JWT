@@ -113,6 +113,9 @@ A documentação interativa estará disponível em:
 
 ---
 
+#### Usado para desenvolvimento:
+- pip install aiosqlite
+
 #### Principais Libs:
 - fastapi
 - psycopg2-binary
@@ -126,4 +129,3 @@ A documentação interativa estará disponível em:
 - pydantic-settings
 - pydantic[email]
 - bcrypt==4.0.1
-

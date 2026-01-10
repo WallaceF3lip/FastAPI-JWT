@@ -5,7 +5,11 @@ from sqlalchemy.ext.declarative import declarative_base
 
 class Settings(BaseSettings):
     API_V1_STR: str = "/api/v1"
-    DB_URL: str = "postgresql+asyncpg://user:password@localhost:5432/db_teste"
+    # Database URL de conexão -> UTILIZADO PARA PRODUÇÃO
+    # DB_URL: str = "postgresql+asyncpg://user:password@localhost:5432/db_teste"
+    
+    # Database URL de conexão -> UTILIZADO PARA TESTES/DESENVOLVIMENTO
+    DB_URL: str = "sqlite+aiosqlite:///./db_projeto.db"
     DBBaseModel: ClassVar = declarative_base()
 
     JWT_SECRET: str = "eIgUH-7K5ps-5XiTOeX9MCrE0hi9B1l-Acd9fLnBCH0"
